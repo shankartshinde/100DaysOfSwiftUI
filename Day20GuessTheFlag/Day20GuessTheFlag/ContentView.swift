@@ -8,6 +8,18 @@
 
 import SwiftUI
 
+struct ImageModifier:View {
+    var imageName: String
+    var body: some View {
+        Image(imageName)
+            .renderingMode(.original)
+            .clipShape(Capsule())
+            .overlay(Capsule().stroke(Color.black, lineWidth: 1))
+            .shadow(color: .black, radius: 2)
+    }
+}
+
+
 struct ContentView: View {
     @State private var userName = ""
     @State private var isShowAlert = false
@@ -41,11 +53,14 @@ struct ContentView: View {
                         self.flagTapped(number)
                         self.isShowAlert = true
                     }) {
+                        ImageModifier(imageName: self.countries[number])
+                        /*
                         Image(self.countries[number])
                             .renderingMode(.original)
                             .clipShape(Capsule())
                             .overlay(Capsule().stroke(Color.black, lineWidth: 1))
                             .shadow(color: .black, radius: 2)
+                         */
                     }
                 }
                 
