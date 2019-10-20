@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var checkAmount = ""
     @State private var numberOfPeople = 2
     @State private var tipPercentage = 2
-    let percentage = [5,10,15,20,25]
+    let percentage = [0,5,10,15,20,25]
     
     var grandTotal: Double {
         let orderAmount = Double(checkAmount) ?? 0
@@ -31,6 +31,13 @@ struct ContentView: View {
         let amountPerPerson = grandTotal/peopelCount
 
         return amountPerPerson
+    }
+    
+    // Day 23 Challenge
+    // Go back to project 1 and use a conditional modifier to change the total amount text view to red if the user selects a 0% tip.
+
+    var isTipSelected : Bool {
+        return tipPercentage == 0
     }
     
     var body: some View {
@@ -66,10 +73,13 @@ struct ContentView: View {
 
                 Section(header:Text("Grand Total")) {
                     Text("$\(grandTotal,specifier: "%.2f") ")
+                        .foregroundColor(tipPercentage != 0 ? .black : .red)
                 }
 
                 Section(header:Text("Amount per person")) {
                     Text("$\(totalPerPerson,specifier: "%.2f") ")
+                        //.foregroundColor(tipPercentage != 0 ? .black : .red)
+                        .foregroundColor(isTipSelected ? .red : .black)
                 }
             }
             .navigationBarTitle(Text("Check Split"), displayMode: NavigationBarItem.TitleDisplayMode.inline)
